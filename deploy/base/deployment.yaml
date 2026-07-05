@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ccc-web
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: ccc-web
+          image: ghcr.io/amcheste/ccc-web:latest
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: ops
+              containerPort: 8081
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: ops
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: ops
+            periodSeconds: 5
+          # Static file serving idles well under these on a Pi 5.
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+      securityContext:
+        runAsNonRoot: true
+        # Numeric UID/GID for distroless's "nonroot" user; kubelet cannot
+        # verify runAsNonRoot against a symbolic image user.
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
