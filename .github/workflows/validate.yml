@@ -46,21 +46,49 @@ jobs:
             || echo "source=false" >> "$GITHUB_OUTPUT"
 
   # ── Lint ───────────────────────────────────────────────────────────────────
-  # Customise this job for your project's language/toolchain.
-  # Examples:
-  #   Shell:      shellcheck **/*.sh
-  #   Go:         go vet ./... && golangci-lint run
-  #   Python:     ruff check . && mypy .
-  #   Node:       npm run lint
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
-      - name: Lint
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Web install
+        working-directory: web
+        run: npm ci
+
+      - name: Web lint (oxlint + prettier)
+        working-directory: web
+        run: npm run lint
+
+      - name: Web tests
+        working-directory: web
+        run: npm test
+
+      - name: Web production build
+        working-directory: web
+        run: npm run build
+
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version-file: go.mod
+
+      - uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9
+        with:
+          version: v2.12.2
+
+      - name: Go build (both architectures)
         run: |
-          echo "TODO: add lint steps for this project"
+          CGO_ENABLED=0 GOARCH=arm64 go build ./...
+          CGO_ENABLED=0 GOARCH=amd64 go build ./...
+
+      - name: Go tests
+        run: go test ./...
 
   # ── Commit Lint (PRs only) ──────────────────────────────────────────────────
   commit-lint:
