@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Brand palette: hunter green is reserved for data, pivots, and
+     primary actions; ink for text. Do not decorate with green. */
+  --color-hunter-50: #f2f7f4;
+  --color-hunter-100: #dfece4;
+  --color-hunter-500: #2e6b4f;
+  --color-hunter-600: #265a42;
+  --color-hunter-700: #1f4d3a;
+  --color-hunter-800: #193d2e;
+  --color-ink: #0b0b0c;
+}
+
+body {
+  @apply bg-neutral-50 text-ink antialiased;
+}
