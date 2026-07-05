@@ -13,14 +13,14 @@ export function HomePage() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardTitle>Accounts</CardTitle>
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-muted">
             Household sign-in is live. Manage your profile and sessions, or
             users if you are an admin.
           </p>
         </Card>
-        <Card className="border-dashed">
-          <CardTitle className="text-neutral-400">Next service</CardTitle>
-          <p className="text-sm text-neutral-400">
+        <Card className="border-dashed bg-transparent">
+          <CardTitle className="text-muted">Next service</CardTitle>
+          <p className="text-sm text-muted">
             Future CCC services plug their dashboard tiles in here.
           </p>
         </Card>

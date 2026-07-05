@@ -91,10 +91,10 @@ export function UsersPage() {
       <h1 className="text-2xl font-semibold">Users</h1>
 
       {tempPassword && (
-        <Card className="border-hunter-500 bg-hunter-50">
+        <Card className="border-accent bg-accent-soft">
           <p className="text-sm">
             One-time password for <strong>{tempPassword.username}</strong>:
-            <code className="mx-2 rounded bg-white px-2 py-1 font-mono">
+            <code className="mx-2 rounded-xs bg-white px-2 py-1 font-mono">
               {tempPassword.password}
             </code>
             They must change it at first sign-in. This is shown once.
@@ -111,32 +111,28 @@ export function UsersPage() {
 
       <Card>
         <CardTitle>Household members</CardTitle>
-        {users.isLoading && (
-          <p className="text-sm text-neutral-500">Loading…</p>
-        )}
+        {users.isLoading && <p className="text-sm text-muted">Loading…</p>}
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-neutral-200 text-neutral-500">
-              <th className="py-2 pr-4 font-medium">User</th>
-              <th className="py-2 pr-4 font-medium">Role</th>
-              <th className="py-2 pr-4 font-medium">Status</th>
+            <tr className="border-b border-mist">
+              <th className="eyebrow py-2 pr-4 font-normal">user</th>
+              <th className="eyebrow py-2 pr-4 font-normal">role</th>
+              <th className="eyebrow py-2 pr-4 font-normal">status</th>
               <th className="py-2" />
             </tr>
           </thead>
-          <tbody className="divide-y divide-neutral-100">
+          <tbody className="divide-y divide-mist/60">
             {users.data?.users.map((u) => (
               <tr key={u.id}>
                 <td className="py-3 pr-4">
                   <p className="font-medium">{u.display_name}</p>
-                  <p className="text-xs text-neutral-500">{u.username}</p>
+                  <p className="text-xs text-muted">{u.username}</p>
                 </td>
                 <td className="py-3 pr-4">{u.role}</td>
                 <td className="py-3 pr-4">
                   <span
                     className={
-                      u.status === 'active'
-                        ? 'text-hunter-700'
-                        : 'text-neutral-400'
+                      u.status === 'active' ? 'text-accent' : 'text-muted'
                     }
                   >
                     {u.status}
@@ -180,7 +176,7 @@ export function UsersPage() {
           </div>
           <Field label="Role" error={errors.role?.message}>
             <select
-              className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm"
+              className="w-full rounded-xs border border-mist bg-white px-3 py-2 text-sm text-ink"
               {...register('role')}
             >
               <option value="member">member</option>

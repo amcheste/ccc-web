@@ -43,9 +43,11 @@ export function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-sm">
-        <h1 className="mb-1 text-xl font-semibold">Command &amp; Control</h1>
-        <p className="mb-6 text-sm text-neutral-500">
-          Sign in to your household account.
+        <img src="/favicon.svg" alt="" className="mb-4 h-8 w-8" />
+        <p className="eyebrow mb-2">command &amp; control</p>
+        <h1 className="mb-1 text-xl font-semibold">Sign in</h1>
+        <p className="mb-6 text-sm text-muted">
+          Your household account for the CCC.
         </p>
         <form onSubmit={onSubmit} className="space-y-4">
           <Field label="Username" error={errors.username?.message}>
@@ -63,7 +65,7 @@ export function LoginPage() {
             />
           </Field>
           {serverError && (
-            <p role="alert" className="text-sm text-red-700">
+            <p role="alert" className="text-sm text-rust">
               {serverError}
             </p>
           )}

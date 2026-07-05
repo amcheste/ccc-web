@@ -1,11 +1,15 @@
 import type { ButtonHTMLAttributes } from 'react'
 
+// Accent discipline: buttons are chrome, so the primary action is ink,
+// not hunter green. Rust (the brand's alternate accent) marks
+// destructive actions.
 const variants = {
   primary:
-    'bg-hunter-700 text-white hover:bg-hunter-600 disabled:bg-neutral-300',
+    'bg-ink text-paper hover:bg-graphite disabled:bg-mist disabled:text-muted',
   secondary:
-    'border border-neutral-300 bg-white text-ink hover:bg-neutral-100 disabled:text-neutral-400',
-  danger: 'bg-red-700 text-white hover:bg-red-600 disabled:bg-neutral-300',
+    'border border-mist bg-white text-ink hover:bg-paper disabled:text-muted',
+  danger:
+    'bg-rust text-paper hover:opacity-90 disabled:bg-mist disabled:text-muted',
 } as const
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -19,7 +23,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`rounded-md px-3 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed ${variants[variant]} ${className}`}
+      className={`rounded-xs px-3 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed ${variants[variant]} ${className}`}
       {...props}
     />
   )

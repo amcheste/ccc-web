@@ -66,11 +66,11 @@ export function ProfilePage() {
       <Card>
         <CardTitle>Account</CardTitle>
         <dl className="grid grid-cols-2 gap-2 text-sm">
-          <dt className="text-neutral-500">Username</dt>
+          <dt className="text-muted">Username</dt>
           <dd>{user?.username}</dd>
-          <dt className="text-neutral-500">Display name</dt>
+          <dt className="text-muted">Display name</dt>
           <dd>{user?.display_name}</dd>
-          <dt className="text-neutral-500">Role</dt>
+          <dt className="text-muted">Role</dt>
           <dd>{user?.role}</dd>
         </dl>
       </Card>
@@ -103,7 +103,7 @@ export function ProfilePage() {
             />
           </Field>
           {changed && (
-            <p className="text-sm text-hunter-700">
+            <p className="text-sm text-accent">
               Password changed. Other sessions were signed out.
             </p>
           )}
@@ -115,22 +115,20 @@ export function ProfilePage() {
 
       <Card>
         <CardTitle>Sessions</CardTitle>
-        {sessions.isLoading && (
-          <p className="text-sm text-neutral-500">Loading…</p>
-        )}
-        <ul className="divide-y divide-neutral-100">
+        {sessions.isLoading && <p className="text-sm text-muted">Loading…</p>}
+        <ul className="divide-y divide-mist/60">
           {sessions.data?.sessions.map((s) => (
             <li key={s.id} className="flex items-center justify-between py-3">
               <div>
                 <p className="text-sm font-medium">
                   {s.device_name ?? 'Unknown device'}
                   {s.current && (
-                    <span className="ml-2 rounded bg-hunter-100 px-1.5 py-0.5 text-xs text-hunter-800">
+                    <span className="ml-2 rounded-xs bg-mist px-1.5 py-0.5 font-mono text-xs text-graphite">
                       this device
                     </span>
                   )}
                 </p>
-                <p className="text-xs text-neutral-500">
+                <p className="text-xs text-muted">
                   expires {new Date(s.expires_at).toLocaleDateString()}
                 </p>
               </div>
