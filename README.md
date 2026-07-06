@@ -15,9 +15,10 @@
 
 React 19 + TypeScript + Vite, Tailwind v4, TanStack Query, and React
 Router. At runtime it is a single static Go binary on distroless
-serving the built SPA; Node exists only at build time. The design doc
-lives in the account service repo alongside the API it consumes:
-[account-service.md §UI](https://github.com/amcheste/ccc-account-service/blob/develop/docs/design/account-service.md).
+serving the built SPA; Node exists only at build time. The approved
+design lives at [docs/design/web-ui.md](docs/design/web-ui.md); the
+platform-wide decisions it builds on are in the
+[account service design](https://github.com/amcheste/ccc-account-service/blob/develop/docs/design/account-service.md).
 
 ## v1 pages
 
