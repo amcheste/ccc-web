@@ -1,0 +1,23 @@
+# Local development overlay for kind. Throwaway-local only; homelab
+# cluster state lives in the private ccc-deploy repo.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: ccc
+
+resources:
+  - namespace.yaml
+  - ../base
+
+images:
+  - name: ghcr.io/amcheste/ccc-web
+    newTag: dev
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+    target:
+      kind: Deployment
+      name: ccc-web

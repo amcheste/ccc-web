@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+/* Brand tokens copied from amcheste/alanchester-brand tokens/colors.css
+   and tokens/typography.css (values, not the package, per the theming
+   guide). Accent discipline: hunter green marks data, pivots, and the
+   δ only. Chrome, buttons, and navigation get ink. */
+@theme {
+  --color-ink: #0b0b0c;
+  --color-graphite: #2b2b2e;
+  --color-muted: #8a8a8e;
+  --color-mist: #e6e4de;
+  --color-paper: #f6f4ee;
+  --color-accent: #1f4d3a;
+  /* Local tint of the accent for earned highlights on paper. */
+  --color-accent-soft: #e9f0ec;
+  /* Brand alternate accent (rust), used for destructive actions. */
+  --color-rust: #b45a3c;
+
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+body {
+  @apply bg-paper font-sans text-graphite antialiased;
+}
+
+h1,
+h2,
+h3 {
+  @apply text-ink;
+}
+
+/* Eyebrow labels: mono, lowercase, wide tracking, muted. */
+.eyebrow {
+  @apply font-mono text-[11px] tracking-[0.18em] text-muted lowercase;
+}
