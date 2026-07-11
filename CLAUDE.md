@@ -6,7 +6,27 @@ This file is read by Claude Code at the start of every session in this repo.
 
 ## About This Repo
 
-<!-- TODO: describe what this project does -->
+Web UI for the Command and Control Center (CCC) homelab platform.
+React 19 + TypeScript + Vite + Tailwind v4 SPA under `web/`, served in
+production by a static Go binary (`cmd/ccc-web`) that embeds the built
+dist. Multi-arch (arm64 + amd64), CGO disabled, distroless runtime.
+
+Rules that matter here:
+
+- Access tokens live in module memory only (`web/src/api/client.ts`).
+  Never put tokens in localStorage or sessionStorage; the refresh
+  token is an HttpOnly cookie owned by the browser.
+- All API calls go through the typed `api()` client with zod schemas.
+  Endpoints and shapes must match the account service design doc; MSW
+  handlers in `web/src/mocks/` mirror them and get deleted as real
+  endpoints land.
+- Same-origin is load-bearing: the SPA calls `/api/account/...`
+  relative paths routed by the ingress. Never introduce an absolute
+  API base URL or CORS config.
+- Never edit `internal/webfs/dist/` beyond the committed placeholder;
+  the real UI is copied in during the Docker build only.
+- UI role gating (hiding admin nav) is UX, not security. Enforcement
+  belongs to the services.
 
 ---
 
